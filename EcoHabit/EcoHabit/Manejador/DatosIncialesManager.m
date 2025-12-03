@@ -1,69 +1,21 @@
 //
-//  AppDelegate.m
+//  DatosIncialesManager.m
 //  EcoHabit
 //
-//  Created by Victor Manuel Tijerina Garnica on 29/11/25.
+//  Created by Victor Manuel Tijerina Garnica on 03/12/25.
 //
 
-#import "AppDelegate.h"
-#import <CoreData/CoreData.h>
-#import "Modelos/accion/Accion+CoreDataClass.h"
-#import "Modelos/categoria/Categoria+CoreDataClass.h"
+#import "DatosIncialesManager.h"
+#import "Categoria+CoreDataClass.h"
+#import "Accion+CoreDataClass.h"
 
-@interface AppDelegate ()
+@implementation DatosIncialesManager
 
-@end
-
-@implementation AppDelegate
-
-
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-    [self cargarDatosIniciales];
-    
-    return YES;
-}
-
-
-#pragma mark - UISceneSession lifecycle
-
-
-- (UISceneConfiguration *)application:(UIApplication *)application configurationForConnectingSceneSession:(UISceneSession *)connectingSceneSession options:(UISceneConnectionOptions *)options {
-    // Called when a new scene session is being created.
-    // Use this method to select a configuration to create the new scene with.
-    return [[UISceneConfiguration alloc] initWithName:@"Default Configuration" sessionRole:connectingSceneSession.role];
-}
-
-
-- (void)application:(UIApplication *)application didDiscardSceneSessions:(NSSet<UISceneSession *> *)sceneSessions {
-    // Called when the user discards a scene session.
-    // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-    // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-}
-
-@synthesize persistentContainer = _persistentContainer;
-
-- (NSPersistentContainer *)persistentContainer {
-    if (_persistentContainer == nil) {
-        _persistentContainer = [[NSPersistentContainer alloc] initWithName:@"EcoHabit"];
-        [_persistentContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *storeDescription, NSError *error) {
-            if (error != nil) {
-                NSLog(@"Error al cargar persistent store: %@", error.localizedDescription);
-                abort();
-            }
-        }];
-    }
-    return _persistentContainer;
-}
-
-- (void)cargarDatosIniciales {
++ (void)cargarEnContexto:(NSManagedObjectContext *)context {
     NSFetchRequest *request = [Accion fetchRequest];
     NSError *error = nil;
-    NSUInteger count = [self.persistentContainer.viewContext countForFetchRequest:request error:&error];
-
-    if (count > 0) return; // Ya existen acciones, no cargar de nuevo
-
-    NSManagedObjectContext *context = self.persistentContainer.viewContext;
+    NSUInteger count = [context countForFetchRequest:request error:&error];
+    if (count > 0) return;
 
     // Crear categorías
     Categoria *transporte = [NSEntityDescription insertNewObjectForEntityForName:@"Categoria" inManagedObjectContext:context];
@@ -133,23 +85,38 @@
     crearAccion(@"Reparar en lugar de reemplazar", 1.5, @"por objeto", @"Prolonga vida útil", consumo);
     crearAccion(@"Comprar a granel", 1.0, @"por compra", @"Menos empaques, menos emisiones", consumo);
 
-    // Guardar
     [context save:&error];
     if (error) {
         NSLog(@"Error al guardar datos iniciales: %@", error.localizedDescription);
     } else {
-        NSLog(@"Categorías y acciones iniciales cargadas");
+        NSLog(@"Datos iniciales cargados correctamente");
     }
 }
 
-- (void)saveContext {
-    NSManagedObjectContext *context = self.persistentContainer.viewContext;
++ (void)borrarTodoEnEntidad:(NSString *)nombreEntidad contexto:(NSManagedObjectContext *)context {
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:nombreEntidad];
+    fetchRequest.includesPropertyValues = NO; // Más eficiente
+    
     NSError *error = nil;
-    if ([context hasChanges] && ![context save:&error]) {
-        NSLog(@"Error al guardar contexto: %@", error.localizedDescription);
-        abort();
+    NSArray *objetos = [context executeFetchRequest:fetchRequest error:&error];
+    
+    if (error) {
+        NSLog(@"Error al obtener objetos de %@: %@", nombreEntidad, error.localizedDescription);
+        return;
+    }
+    
+    for (NSManagedObject *objeto in objetos) {
+        [context deleteObject:objeto];
+    }
+    
+    if ([context hasChanges]) {
+        [context save:&error];
+        if (error) {
+            NSLog(@"Error al guardar cambios al borrar %@: %@", nombreEntidad, error.localizedDescription);
+        } else {
+            NSLog(@"Todos los objetos de %@ fueron eliminados", nombreEntidad);
+        }
     }
 }
-
 
 @end

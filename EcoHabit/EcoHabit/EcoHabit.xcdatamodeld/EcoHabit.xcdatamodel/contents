@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="22G74" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Accion" representedClassName="Accion" syncable="YES">
+        <attribute name="impacto" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="nombre" optional="YES" attributeType="String"/>
+        <attribute name="unidad" optional="YES" attributeType="String"/>
+        <relationship name="categoria" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Categoria" inverseName="acciones" inverseEntity="Categoria"/>
+        <relationship name="habitos" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Habito" inverseName="accion" inverseEntity="Habito"/>
+    </entity>
+    <entity name="Categoria" representedClassName="Categoria" syncable="YES">
+        <attribute name="nombre" optional="YES" attributeType="String"/>
+        <relationship name="acciones" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Accion" inverseName="categoria" inverseEntity="Accion"/>
+        <relationship name="desafios" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Desafio" inverseName="categoria" inverseEntity="Desafio"/>
+    </entity>
+    <entity name="Desafio" representedClassName="Desafio" syncable="YES">
+        <attribute name="completado" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="descripcion" optional="YES" attributeType="String"/>
+        <attribute name="fechaFin" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="fechaInicio" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="meta" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="nombre" optional="YES" attributeType="String"/>
+        <attribute name="progreso" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="categoria" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Categoria" inverseName="desafios" inverseEntity="Categoria"/>
+    </entity>
+    <entity name="Habito" representedClassName="Habito" syncable="YES">
+        <attribute name="categoria" optional="YES" attributeType="String"/>
+        <attribute name="fecha" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="impacto" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="nombre" optional="YES" attributeType="String"/>
+        <relationship name="accion" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Accion" inverseName="habitos" inverseEntity="Accion"/>
+    </entity>
+</model>
