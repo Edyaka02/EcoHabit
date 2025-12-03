@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22522" systemVersion="22G630" minimumToolsVersion="Automatic" sourceLanguage="Objective-C" usedWithSwiftData="YES" userDefinedModelVersionIdentifier="">
+    <entity name="Categoria" representedClassName="Categoria" syncable="YES" codeGenerationType="class">
+        <attribute name="icono" optional="YES" attributeType="String"/>
+        <attribute name="nombre" optional="YES" attributeType="String"/>
+        <relationship name="categoriahabito" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Habito"/>
+    </entity>
+    <entity name="Desafio" representedClassName="Desafio" syncable="YES" codeGenerationType="class">
+        <attribute name="fechaFin" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="fechaInicio" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="meta" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="progreso" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="titulo" optional="YES" attributeType="String"/>
+        <relationship name="desafiohabito" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Habito"/>
+        <relationship name="desafiousuario" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Usuario"/>
+    </entity>
+    <entity name="Estadistica" representedClassName="Estadistica" syncable="YES" codeGenerationType="class">
+        <attribute name="diasActivos" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="impactoTotal" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="totalHabitos" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="estadisticausuario" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Usuario"/>
+    </entity>
+    <entity name="Habito" representedClassName="Habito" syncable="YES" codeGenerationType="class">
+        <attribute name="categoria" optional="YES" attributeType="String"/>
+        <attribute name="fecha" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="impacto" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="nombre" optional="YES" attributeType="String"/>
+        <relationship name="habitocategoria" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Categoria"/>
+        <relationship name="habitodesafio" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Desafio"/>
+        <relationship name="habitoracha" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Racha"/>
+        <relationship name="habitousuario" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Usuario"/>
+    </entity>
+    <entity name="Racha" representedClassName="Racha" syncable="YES" codeGenerationType="class">
+        <attribute name="diasConsecutivos" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="fechaInicio" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="rachahabito" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Habito"/>
+    </entity>
+    <entity name="Usuario" representedClassName="Usuario" syncable="YES" codeGenerationType="class">
+        <attribute name="nivel" optional="YES" attributeType="String"/>
+        <attribute name="nombre" optional="YES" attributeType="String"/>
+        <relationship name="usuariodesafio" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Desafio"/>
+        <relationship name="usuarioestadistica" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Estadistica"/>
+        <relationship name="usuariohabito" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Habito"/>
+    </entity>
+</model>
