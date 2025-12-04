@@ -2,7 +2,7 @@
 //  AppDelegate.m
 //  EcoHabit
 //
-//  Created by Victor Manuel Tijerina Garnica on 29/11/25.
+//  Created by Guest User on 29/11/25.
 //
 
 #import "AppDelegate.h"

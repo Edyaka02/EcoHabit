@@ -2,7 +2,7 @@
 //  HabitosViewController.m
 //  EcoHabit
 //
-//  Created by Victor Manuel Tijerina Garnica on 29/11/25.
+//  Created by Guest User on 29/11/25.
 //
 
 #import "AppDelegate.h"
@@ -20,26 +20,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+
     if (!self.context) {
             AppDelegate *appDelegate = (AppDelegate *)UIApplication.sharedApplication.delegate;
             self.context = appDelegate.persistentContainer.viewContext;
         }
     
-    [DatosIncialesManager cargarEnContexto:self.context];
+    [DatosIncialesManager poblarDatosAleatoriosEnContexto:self.context];
+
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
- 
 - (IBAction)guardarHabito:(id)sender {
     if (!self.accionSeleccionada || self.habitoField.text.length == 0) return;
 
@@ -68,19 +58,35 @@
     NSError *error = nil;
     if ([self.context save:&error]) {
         NSLog(@"Hábito guardado correctamente");
+
+        // Limpiar campos y selección
+        self.habitoField.text = @"";
+        self.categoriaSeleccionada = nil;
+        self.accionSeleccionada = nil;
+        self.categoriaField.text = @"";
+        self.accionField.text = @"";
+        self.impactoField.text = @"";
+
+        [self.fechaPicker setDate:[NSDate date] animated:YES];
+        [self.horaPicker setDate:[NSDate date] animated:YES];
+
+        [self.habitoField resignFirstResponder];
+
+        // Opcional: cerrar vista si es modal
         [self dismissViewControllerAnimated:YES completion:nil];
     } else {
         NSLog(@"Error al guardar hábito: %@", error.localizedDescription);
     }
-    
+
+    // Debug: imprimir hábitos guardados
     NSFetchRequest *fetchRequest = [Habito fetchRequest];
     NSError *fetchError = nil;
     NSArray *todosLosHabitos = [self.context executeFetchRequest:fetchRequest error:&fetchError];
 
     if (fetchError) {
-        NSLog(@"❌ Error al obtener todos los hábitos: %@", fetchError.localizedDescription);
+        NSLog(@"Error al obtener hábitos: %@", fetchError.localizedDescription);
     } else {
-        NSLog(@"📋 Lista de hábitos guardados (%lu):", (unsigned long)todosLosHabitos.count);
+        NSLog(@"Lista de hábitos guardados (%lu):", (unsigned long)todosLosHabitos.count);
         for (Habito *habito in todosLosHabitos) {
             NSLog(@"- Acción: %@ | Categoría: %@ | Fecha: %@ | Impacto: %.1f kg CO₂",
                   habito.accion.nombre,
@@ -89,10 +95,7 @@
                   habito.accion.impacto);
         }
     }
-    
-    
 }
-
 - (IBAction)seleccionarAccion:(id)sender {
     if (!self.categoriaSeleccionada) return;
 

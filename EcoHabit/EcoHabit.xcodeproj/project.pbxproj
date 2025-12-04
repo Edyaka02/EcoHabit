@@ -30,6 +30,7 @@
 		A3B63C352EE0346900ABE09A /* Habito+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = A3B63C332EE0346900ABE09A /* Habito+CoreDataProperties.m */; };
 		A3B63C392EE042FB00ABE09A /* DatosIncialesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A3B63C382EE042FB00ABE09A /* DatosIncialesManager.m */; };
 		A3B63C402EE04B8500ABE09A /* HistorialCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A3B63C3F2EE04B8500ABE09A /* HistorialCell.m */; };
+		AC1D9A892EE0F6940082083F /* BarChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC1D9A882EE0F6940082083F /* BarChartView.m */; };
 		AC8E35202EDFB28C00783A7C /* EcoHabit.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AC8E351E2EDFB28C00783A7C /* EcoHabit.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
@@ -78,6 +79,8 @@
 		A3B63C382EE042FB00ABE09A /* DatosIncialesManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DatosIncialesManager.m; sourceTree = "<group>"; };
 		A3B63C3E2EE04B8500ABE09A /* HistorialCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HistorialCell.h; sourceTree = "<group>"; };
 		A3B63C3F2EE04B8500ABE09A /* HistorialCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HistorialCell.m; sourceTree = "<group>"; };
+		AC1D9A872EE0F6940082083F /* BarChartView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BarChartView.h; sourceTree = "<group>"; };
+		AC1D9A882EE0F6940082083F /* BarChartView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BarChartView.m; sourceTree = "<group>"; };
 		AC8E351F2EDFB28C00783A7C /* EcoHabit.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = EcoHabit.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -258,6 +261,8 @@
 			children = (
 				A3B63C372EE042FB00ABE09A /* DatosIncialesManager.h */,
 				A3B63C382EE042FB00ABE09A /* DatosIncialesManager.m */,
+				AC1D9A872EE0F6940082083F /* BarChartView.h */,
+				AC1D9A882EE0F6940082083F /* BarChartView.m */,
 			);
 			path = Manejador;
 			sourceTree = "<group>";
@@ -352,6 +357,7 @@
 				A338A9342EDBC950001B2FD4 /* AppDelegate.m in Sources */,
 				A338A95C2EDBE70F001B2FD4 /* HistorialViewController.m in Sources */,
 				A3B63C282EE033F200ABE09A /* Accion+CoreDataClass.m in Sources */,
+				AC1D9A892EE0F6940082083F /* BarChartView.m in Sources */,
 				A338A9592EDBE701001B2FD4 /* HabitosViewController.m in Sources */,
 				A3B63C392EE042FB00ABE09A /* DatosIncialesManager.m in Sources */,
 				A3B63C222EE032C500ABE09A /* Categoria+CoreDataClass.m in Sources */,

@@ -2,7 +2,7 @@
 //  DatosIncialesManager.h
 //  EcoHabit
 //
-//  Created by Victor Manuel Tijerina Garnica on 03/12/25.
+//  Created by Guest User on 03/12/25.
 //
 
 #import <Foundation/Foundation.h>
@@ -12,8 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DatosIncialesManager : NSObject
 
-+ (void)cargarEnContexto:(NSManagedObjectContext *)context;
-
++ (void)poblarDatosAleatoriosEnContexto:(NSManagedObjectContext *)context;
 + (void)borrarTodoEnEntidad:(NSString *)nombreEntidad contexto:(NSManagedObjectContext *)context;
 
 

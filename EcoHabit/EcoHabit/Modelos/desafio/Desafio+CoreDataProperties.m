@@ -2,7 +2,7 @@
 //  Desafio+CoreDataProperties.m
 //  EcoHabit
 //
-//  Created by Victor Manuel Tijerina Garnica on 03/12/25.
+//  Created by Guest User on 03/12/25.
 //
 //
 
